@@ -10,6 +10,8 @@ const Register = () => {
     role: "",
   });
 
+  const [users, setUsers] = useState([]); // State to store all users
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -17,11 +19,16 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Register the user
       const response = await axios.post(
         "http://127.0.0.1:8000/api/users/register/",
         formData
       );
       alert(response.data.message);
+
+      // Fetch all users after successful registration
+      const usersResponse = await axios.get("http://127.0.0.1:8000/api/users/");
+      setUsers(usersResponse.data); // Store all users in state
     } catch (error) {
       if (error.response) {
         console.error("Error response:", error.response.data);
@@ -113,6 +120,22 @@ const Register = () => {
               Register
             </button>
           </form>
+
+          {/* Display all users */}
+          {users.length > 0 && (
+            <div className="users-list">
+              <h2>All Users</h2>
+              <ul>
+                {users.map((user) => (
+                  <li key={user.id}>
+                    <p><strong>Username:</strong> {user.username}</p>
+                    <p><strong>Email:</strong> {user.email}</p>
+                    <p><strong>Role:</strong> {user.role}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
 

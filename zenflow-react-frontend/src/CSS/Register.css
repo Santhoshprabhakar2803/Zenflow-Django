@@ -61,14 +61,17 @@ body {
   }
   
   .about ul {
-    margin-top: 15px;
+    margin-top: 50px;
     padding-left: 20px;
+    text-align: left;
     color: #555;
   }
   
   .about ul li {
-    font-size: 1rem;
+    font-size: 20px;
     margin-bottom: 10px;
+    color: #007BFF;
+    list-style: disc;
   }
   
   .register-container {
